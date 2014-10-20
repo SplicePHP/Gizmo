@@ -1,4 +1,4 @@
 Gizmo
 =====
 
-CakePHP light weight gizmo inteface.
+CakePHP 3.x light-weight gizmo inteface.
