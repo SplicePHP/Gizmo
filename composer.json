@@ -1,0 +1,41 @@
+{
+	"name": "splicephp/gizmo",
+	"description": "CakePHP Gizmo Plugin",
+	"type": "cakephp-plugin",
+	"keywords": ["cakephp", "gizmo", "widget"],
+	"homepage": "https://github.com/SplicePHP/Gizmo",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Dieter Gribnitz",
+			"homepage": "http://splicephp.com",
+			"role": "Author"
+		}
+	],
+	"require": {
+		"php": ">=5.4.4",
+		"cakephp/plugin-installer": "dev-master",
+		"cakephp/migrations": "dev-master"
+	},
+	"require-dev": {
+		"cakephp/cakephp": "3.0.*-dev",
+		"phpunit/phpunit": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Gizmo\\": "src",
+			"Gizmo\\Test\\Fixture\\": "tests\\Fixture"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Cake\\Test\\": "vendor/cakephp/cakephp/tests",
+			"Gizmo\\Test\\": "tests"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0"
+		}
+	}
+}
