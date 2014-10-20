@@ -13,13 +13,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4.4",
-		"cakephp/plugin-installer": "dev-master",
-		"cakephp/migrations": "dev-master"
-	},
-	"require-dev": {
-		"cakephp/cakephp": "3.0.*-dev",
-		"phpunit/phpunit": "*"
+		"cakephp/plugin-installer": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
@@ -29,13 +23,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Cake\\Test\\": "vendor/cakephp/cakephp/tests",
 			"Gizmo\\Test\\": "tests"
-		}
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "1.0"
 		}
 	}
 }
