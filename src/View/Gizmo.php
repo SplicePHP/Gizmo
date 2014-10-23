@@ -1,6 +1,6 @@
 <?php
 
-namespace System\View;
+namespace Gizmo\View;
 
 use Cake\Event\EventManager;
 use Cake\Event\EventManagerTrait;
@@ -8,15 +8,11 @@ use Cake\Model\ModelAwareTrait;
 use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\Utility\Inflector;
-use Cake\View\Exception\MissingCellViewException;
+use Gizmo\View\Exception\MissingGizmoViewException;
 use Cake\View\Exception\MissingViewException;
 use Cake\View\ViewVarsTrait;
 
 abstract class Gizmo {
-    
-    public function hello(){
-        echo 'hello';
-    }
 
 	use EventManagerTrait;
 	use ModelAwareTrait;
@@ -24,7 +20,7 @@ abstract class Gizmo {
 
 /**
  * Instance of the View created during rendering. Won't be set until after
- * Cell::__toString() is called.
+ * Gizmo::__toString() is called.
  *
  * @var \Cake\View\View
  */
@@ -62,7 +58,7 @@ abstract class Gizmo {
 	public $response;
 
 /**
- * The name of the View class this cell sends output to.
+ * The name of the View class this gizmo sends output to.
  *
  * @var string
  */
@@ -76,16 +72,16 @@ abstract class Gizmo {
 	public $theme;
 
 /**
- * The helpers this cell uses.
+ * The helpers this gizmo uses.
  *
- * This property is copied automatically when using the CellTrait
+ * This property is copied automatically when using the GizmoTrait
  *
  * @var array
  */
 	public $helpers = [];
 
 /**
- * These properties can be set directly on Cell and passed to the View as options.
+ * These properties can be set directly on Gizmo and passed to the View as options.
  *
  * @var array
  * @see \Cake\View\View
@@ -97,41 +93,41 @@ abstract class Gizmo {
 /**
  * List of valid options (constructor's fourth arguments)
  * Override this property in subclasses to whitelist
- * which options you want set as properties in your Cell.
+ * which options you want set as properties in your Gizmo.
  *
  * @var array
  */
-	protected $_validCellOptions = [];
+	protected $_validGizmoOptions = [];
 
 /**
  * Constructor.
  *
- * @param \Cake\Network\Request $request the request to use in the cell
- * @param \Cake\Network\Response $response the response to use in the cell
+ * @param \Cake\Network\Request $request the request to use in the gizmo
+ * @param \Cake\Network\Response $response the response to use in the gizmo
  * @param \Cake\Event\EventManager $eventManager then eventManager to bind events to
- * @param array $cellOptions cell options to apply
+ * @param array $gizmoOptions gizmo options to apply
  */
 	public function __construct(Request $request = null, Response $response = null,
-			EventManager $eventManager = null, array $cellOptions = []) {
+			EventManager $eventManager = null, array $gizmoOptions = []) {
 		$this->eventManager($eventManager);
 		$this->request = $request;
 		$this->response = $response;
 		$this->modelFactory('Table', ['Cake\ORM\TableRegistry', 'get']);
 
-		foreach ($this->_validCellOptions as $var) {
-			if (isset($cellOptions[$var])) {
-				$this->{$var} = $cellOptions[$var];
+		foreach ($this->_validGizmoOptions as $var) {
+			if (isset($gizmoOptions[$var])) {
+				$this->{$var} = $gizmoOptions[$var];
 			}
 		}
 	}
 
 /**
- * Render the cell.
+ * Render the gizmo.
  *
  * @param string $template Custom template name to render. If not provided (null), the last
- * value will be used. This value is automatically set by `CellTrait::cell()`.
+ * value will be used. This value is automatically set by `GizmoTrait::gizmo()`.
  * @return void
- * @throws \Cake\View\Exception\MissingCellViewException When a MissingViewException is raised during rendering.
+ * @throws \Cake\View\Exception\MissingGizmoViewException When a MissingViewException is raised during rendering.
  */
 	public function render($template = null) {
 		if ($template !== null && strpos($template, '/') === false) {
@@ -147,31 +143,31 @@ abstract class Gizmo {
 		$this->View->layout = false;
 		$className = explode('\\', get_class($this));
 		$className = array_pop($className);
-		$name = substr($className, 0, strpos($className, 'Cell'));
-		$this->View->subDir = 'Cell' . DS . $name;
+		$name = substr($className, 0, strpos($className, 'Gizmo'));
+		$this->View->subDir = 'Gizmo' . DS . $name;
 
 		try {
 			return $this->View->render($template);
 		} catch (MissingViewException $e) {
-			throw new MissingCellViewException(['file' => $template, 'name' => $name]);
+			throw new MissingGizmoViewException(['file' => $template, 'name' => $name]);
 		}
 	}
 
 /**
  * Magic method.
  *
- * Starts the rendering process when Cell is echoed.
+ * Starts the rendering process when Gizmo is echoed.
  *
  * *Note* This method will trigger an error when view rendering has a problem.
  * This is because PHP will not allow a __toString() method to throw an exception.
  *
- * @return string Rendered cell
+ * @return string Rendered gizmo
  */
 	public function __toString() {
 		try {
 			return $this->render();
 		} catch (\Exception $e) {
-			trigger_error('Could not render cell - ' . $e->getMessage(), E_USER_WARNING);
+			trigger_error('Could not render gizmo - ' . $e->getMessage(), E_USER_WARNING);
 			return '';
 		}
 	}

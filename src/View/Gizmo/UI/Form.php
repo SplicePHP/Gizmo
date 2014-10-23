@@ -1,8 +1,8 @@
 <?php
 namespace Splice\View\Gizmo\UI;
 
-use Splice\View\Gizmo\GizmoInterface;
+use Splice\View\Gizmo;
 
-class Form implements GizmoInterface {
+class Form implements Gizmo {
     
 }
