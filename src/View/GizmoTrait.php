@@ -106,7 +106,7 @@ trait GizmoTrait {
 		$instance->plugin = !empty($plugin) ? $plugin : null;
 		$instance->theme = !empty($this->theme) ? $this->theme : null;
 		if (!empty($this->helpers)) {
-			$instance->helpers = $this->helpers;
+//			$instance->helpers = $this->helpers;
 		}
 		if (isset($this->viewClass)) {
 			$instance->viewClass = $this->viewClass;
